@@ -125,7 +125,7 @@ void createShapedWindow() {
     allow_input_passthrough(g_win);
 
     // Show the window
-    XMapWindow(g_display, g_win);
+//    XMapWindow(g_display, g_win);
 
     red = createXColorFromRGBA(255, 0, 0, 255);
     black = createXColorFromRGBA(0, 0, 0, 200);
@@ -190,7 +190,11 @@ void draw()
 
 void handleCapslockChange(int isON)
 {
-                std::cout <<"FOOBAR."  << isON << std::endl;
+    if(isON)        
+        XMapWindow(g_display, g_win);
+    else
+        XUnmapWindow(g_display, g_win);
+        std::cout <<"FOOBAR."  << isON << std::endl;
 }
 /*
  * 
