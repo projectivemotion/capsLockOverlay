@@ -35,8 +35,8 @@ Colormap g_colormap;
 
 XWindowAttributes wrattr;
     
-XColor red;
-XColor black;
+XColor textColor;
+XColor backgroundColor;
 XColor white;
 
 
@@ -127,8 +127,8 @@ void createShapedWindow() {
     // Show the window
 //    XMapWindow(g_display, g_win);
 
-    red = createXColorFromRGBA(255, 0, 0, 255);
-    black = createXColorFromRGBA(0, 0, 0, 200);
+    textColor = createXColorFromRGBA(0, 0, 0, 255);
+    backgroundColor = createXColorFromRGBA(255, 128, 128, 128);
     white = createXColorFromRGBA(255, 255, 255, 255);
 }
 
@@ -157,7 +157,7 @@ void draw()
     
     gc = XCreateGC (g_display, g_win, 0, 0);
     XSetBackground (g_display, gc, white.pixel); 
-    XSetForeground (g_display, gc, red.pixel);
+    XSetForeground (g_display, gc, textColor.pixel);
 
     XFontStruct * font;
     // const char * fontname = "-misc-fixed-bold-r-normal--18-120-100-100-c-90-iso8859-2";
@@ -173,10 +173,10 @@ void draw()
     }
     XSetFont (g_display, gc, font->fid);
 
-    XSetForeground (g_display, gc, black.pixel);
+    XSetForeground (g_display, gc, backgroundColor.pixel);
     XFillRectangle(g_display, g_win, gc, 0, 0, g_disp_width,g_disp_height);
 
-    XSetForeground (g_display, gc, red.pixel);
+    XSetForeground (g_display, gc, textColor.pixel);
 //    if(duration > 0.0f) {
 //        const char * text = fpsstring.c_str();
         const char * text = "FOO BAZZ";
@@ -190,7 +190,7 @@ void draw()
 
 void handleCapslockChange(int isON)
 {
-    if(isON)        
+    if(isON)
         XMapWindow(g_display, g_win);
     else
         XUnmapWindow(g_display, g_win);
